@@ -1,0 +1,60 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: fault-analyzer-backend
+  profiles:
+    active: h2
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+---
+# Embedded H2 Configuration (Default Profile)
+spring:
+  config:
+    activate:
+      on-profile: h2
+  datasource:
+    url: jdbc:h2:mem:faultanalyzer;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MySQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+---
+# MySQL Production Configuration (Active when --spring.profiles.active=mysql)
+spring:
+  config:
+    activate:
+      on-profile: mysql
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:fault_analyzer_db}?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:root}
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+---
+# C++ Simulation & Analysis Engine Bridge Configuration
+app:
+  cpp-engine:
+    base-url: ${CPP_ENGINE_URL:http://localhost:8081}
+    sync-interval-ms: 1000
+    connect-timeout-ms: 2000
+    read-timeout-ms: 3000
