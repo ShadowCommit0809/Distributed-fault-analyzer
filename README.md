@@ -3,14 +3,7 @@
 > **Software-Only Observability & Root-Cause Analysis System**  
 > *A high-performance C++17 engine, Java 23 Spring Boot orchestration layer, and React 18 visual dashboard for microservice telemetry, fault detection, graph-based anomaly tracing, and 5-factor explainable root-cause diagnosis.*
 
----
-
-> [!IMPORTANT]  
-> **Software-Only Project Disclaimer**  
-> This project is **100% software-based**. It simulates distributed microservices, network latency, log events, error propagation, and graph-based telemetry entirely in memory and across TCP/HTTP services. It does **NOT** require physical hardware, microcontrollers, embedded boards, or physical sensors.
-
----
-
+ 
 ## 📖 Table of Contents
 1. [Executive Summary & Problem Statement](#-executive-summary--problem-statement)
 2. [Key Features](#-key-features)
